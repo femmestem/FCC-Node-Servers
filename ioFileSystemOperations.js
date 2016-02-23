@@ -13,7 +13,7 @@ var fs = require('fs');
 var fileToParse = process.argv[2];
 
 function countNewlines(file) {
-    var contents = fs.readFileSync(file).toString();
+    var contents = fs.readFileSync(file, 'utf8');
     return contents.split("\n").length - 1; 
 }
 
