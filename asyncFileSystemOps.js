@@ -13,20 +13,17 @@ var fileToParse = process.argv[2];
 function countNewlines(file) {
     var contents;
     fs.readFile(file, 'utf8', function (err, data) {
-        contents = data;
         
         if (err) {
-            logErr();
+            contents = err;
         } else {
-            logNewlineCount();
+            contents = data.split("\n").length - 1;
         }
-    });
-    function logErr() {
-        console.log(err);
-    }
 
-    function logNewlineCount() {
-        console.log(contents.split("\n").length - 1);
+        logResults(contents);
+    });
+    function logResults(contents) {
+        console.log(contents);
     }
 }
 
