@@ -39,8 +39,22 @@
  * » Don't change anything else, like global variables or stdout.              
  * » Handle all the errors that may occur and pass them to the callback.       
  */
+var fs = require('fs');
+var path = require('path');
 
 module.exports = function (dir, ext, callback) {
-    callback(null, "Successfully called 'single exported function'");
+    var results;
+    var filterKey = "." + ext;
+
+    fs.readdir(dir, function (err, list) {
+        if (err) {
+            return callback(err);
+        } else {
+            result = list.filter(function (val) {
+            return path.extname(val) === (filterKey);
+            });
+            callback(null, result);
+        }
+    });
 }
 

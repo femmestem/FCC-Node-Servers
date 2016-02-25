@@ -40,16 +40,15 @@
  * » Handle all the errors that may occur and pass them to the callback.       
  */
 
-var dir = "";
-var filterArg = "";
-
 var filterModule = require('./filteredList2Module');
+var dir = process.argv[2];
+var filterArg = process.argv[3];
 
 filterModule(dir, filterArg, function (err, data) {
     if (err) {
         console.log(err);
     } else {
-        console.log(data);
+        console.log(data.join("\n"));
     }
 });
 
