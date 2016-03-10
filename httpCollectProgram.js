@@ -15,8 +15,8 @@ var getDataStream = require('./httpCollectModule'),
 
 getDataStream(url, function(err, data) {
     if (err) {
-        return err;
+        console.log(err);
     } else {
-        return data;
+        console.log(data);
     }
 });
