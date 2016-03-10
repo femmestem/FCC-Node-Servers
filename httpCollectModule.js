@@ -16,10 +16,12 @@ var http = require('http'),
 module.exports = function (url, callback) {
     http.get(url, function (response) {
         response.pipe(bl(function (err, data) {
+            var data = data.toString(),
+                dataLen = data.length;
             if (err) {
                 return err;
             } else {
-                return callback(null, data.toString().length + "\n" + data.toString());   
+                return callback(null, dataLen + "\n" + data);   
             }
         }));
     });
