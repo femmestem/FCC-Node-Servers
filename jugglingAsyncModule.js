@@ -17,6 +17,7 @@ var http = require('http'),
 
 module.exports = function (urlArr, callback) {
     var dataQueue = [];
+    var count = 0;
 
     for (var i=0, l=urlArr.length; i<l; i++) {
         getDataStream(urlArr[i], i);
@@ -30,9 +31,11 @@ module.exports = function (urlArr, callback) {
                     return err;
                 } else {
                     dataQueue[index] = data.toString(); 
-                    if ( dataQueue.length === urlArr.length) {
-                        callback(null, dataQueue);
-                    }
+                    count++;  
+                }
+                
+                if (count === urlArr.length) {
+                    callback(null, dataQueue);
                 }
             }));
         });
