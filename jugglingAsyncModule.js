@@ -15,6 +15,26 @@
 var http = require('http'),
     bl = require('bl');
 
-module.exports = function (url, callback) {
-    return callback(null, ["item 1", "item2", "item3"]);
+module.exports = function (urlArr, callback) {
+    var dataQueue = [];
+
+    for (var i=0, l=urlArr.length; i<l; i++) {
+        getDataStream(urlArr[i], i);
+    }
+
+
+    function getDataStream(url, index) {
+        http.get(url, function (response) {
+            response.pipe(bl(function (err, data) {
+                if (err) {
+                    return err;
+                } else {
+                    dataQueue[index] = data.toString(); 
+                    if ( dataQueue.length === urlArr.length) {
+                        callback(null, dataQueue);
+                    }
+                }
+            }));
+        });
+    }
 }
